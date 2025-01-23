@@ -10,24 +10,21 @@ let highestScore = 0;
 let gameInterval;
 let gameStarted = false;
 let eatingSoundPlaying = false;  // Flag to control sound play
+let speed = 4;  // Initial speed (milliseconds)
 
-// Get score elements
 let scoreElement = document.getElementById("score");
 let highscoreElement = document.getElementById("highscore");
 
-// Get audio elements
 let eatSound = document.getElementById("eatSound");
 let gameOverSound = document.getElementById("gameOverSound");
 
-// Game settings
 const gridSize = 20;
 const canvasSize = 400;
 
-// Start button and restart button
 let startBtn = document.getElementById("startBtn");
 let restartBtn = document.getElementById("restartBtn");
 
-// Game initialization
+// Start button function
 function startGame() {
     snake = [{x: 10, y: 10}];
     direction = "RIGHT";
@@ -36,9 +33,10 @@ function startGame() {
     generateFood();
     gameStarted = true;
     eatingSoundPlaying = false;
+    speed = 100;  // Reset speed to initial
     startBtn.style.display = "none";
     restartBtn.style.display = "none";
-    gameInterval = setInterval(updateGame, 100);
+    gameInterval = setInterval(updateGame, speed);
 }
 
 // Game over handling
@@ -53,7 +51,7 @@ function gameOver() {
     }
 }
 
-// Restart game
+// Restart game function
 function restartGame() {
     restartBtn.style.display = "none";
     startGame();
@@ -73,6 +71,7 @@ function updateGame() {
             scoreElement.textContent = score;
             generateFood();
             growSnake();
+            increaseSpeed();  // Increase speed as snake grows
         }
         drawGame();
     }
@@ -81,53 +80,45 @@ function updateGame() {
 // Draw game elements
 function drawGame() {
     ctx.clearRect(0, 0, canvasSize, canvasSize);
-    // Draw the snake
     for (let i = 0; i < snake.length; i++) {
         if (i === 0) {
-            drawHead(snake[i].x * gridSize, snake[i].y * gridSize); // Draw head with oval shape
+            drawHead(snake[i].x * gridSize, snake[i].y * gridSize);
         } else {
-            ctx.fillStyle = "#00FF00"; // Body color
+            ctx.fillStyle = "#00FF00"; 
             ctx.fillRect(snake[i].x * gridSize, snake[i].y * gridSize, gridSize, gridSize);
         }
-
-        // Draw eyes for the head (snake[0])
         if (i === 0) {
             drawEyes(snake[i].x * gridSize, snake[i].y * gridSize);
         }
     }
     
-    // Draw food
     ctx.fillStyle = "red";
     ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
 }
 
 // Draw the head of the snake as an oval
 function drawHead(x, y) {
-    ctx.fillStyle = "#33FF33"; // Snake head color
+    ctx.fillStyle = "#33FF33"; 
     ctx.beginPath();
-    ctx.ellipse(x + gridSize / 2, y + gridSize / 2, gridSize / 2, gridSize / 1.2, 0, 0, 2 * Math.PI); // Oval head
+    ctx.ellipse(x + gridSize / 2, y + gridSize / 2, gridSize / 2, gridSize / 1.2, 0, 0, 2 * Math.PI);
     ctx.fill();
 }
 
 // Draw eyes on snake's head
 function drawEyes(x, y) {
-    // Eye positions relative to the snake's head
-    const eyeOffsetX = 4; // Distance from the center
-    const eyeOffsetY = -3; // Slightly above the center
+    const eyeOffsetX = 4;
+    const eyeOffsetY = -3;
     const eyeRadius = 2;
 
-    // Left eye (positioned slightly left and up)
     ctx.fillStyle = "white";
     ctx.beginPath();
     ctx.arc(x + eyeOffsetX, y + eyeOffsetY, eyeRadius, 0, 2 * Math.PI);
     ctx.fill();
 
-    // Right eye (positioned slightly right and up)
     ctx.beginPath();
     ctx.arc(x + gridSize - eyeOffsetX, y + eyeOffsetY, eyeRadius, 0, 2 * Math.PI);
     ctx.fill();
 
-    // Draw pupils (smaller black circles)
     const pupilRadius = 1;
     ctx.fillStyle = "black";
     ctx.beginPath();
@@ -152,7 +143,7 @@ function moveSnake() {
     snake.pop();
 }
 
-// Check for snake collisions with walls or itself
+// Collision checks
 function checkCollision() {
     let head = snake[0];
     if (head.x < 0 || head.x >= canvasSize / gridSize || head.y < 0 || head.y >= canvasSize / gridSize) {
@@ -166,7 +157,6 @@ function checkCollision() {
     return false;
 }
 
-// Check for food collision
 function checkFoodCollision() {
     let head = snake[0];
     return head.x === food.x && head.y === food.y;
@@ -184,6 +174,15 @@ function growSnake() {
     snake.push(tail);
 }
 
+// Increase game speed
+function increaseSpeed() {
+    if (snake.length % 5 === 0) {
+        speed = Math.max(50, speed - 5);  // Minimum speed limit is 50 ms
+        clearInterval(gameInterval);
+        gameInterval = setInterval(updateGame, speed);
+    }
+}
+
 // Handle keyboard input for snake direction
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
@@ -192,7 +191,7 @@ document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
 });
 
-// Event listeners for buttons
+// Button event listeners
 startBtn.addEventListener("click", startGame);
 restartBtn.addEventListener("click", restartGame);
 
@@ -201,23 +200,19 @@ function playEatSound() {
     eatSound.play();
     eatingSoundPlaying = true;
 
-    // Stop sound after 1 second
     setTimeout(() => {
         eatSound.pause();
-        eatSound.currentTime = 0; // Reset sound position to the beginning
+        eatSound.currentTime = 0;
         eatingSoundPlaying = false;
     }, 1000);
 }
 
-// controls
-
-// Get the directional buttons
+// Controls
 let upBtn = document.getElementById("upBtn");
 let downBtn = document.getElementById("downBtn");
 let leftBtn = document.getElementById("leftBtn");
 let rightBtn = document.getElementById("rightBtn");
 
-// Add event listeners to change the snake's direction
 upBtn.addEventListener("click", () => {
     if (direction !== "DOWN") direction = "UP";
 });
@@ -233,4 +228,3 @@ leftBtn.addEventListener("click", () => {
 rightBtn.addEventListener("click", () => {
     if (direction !== "LEFT") direction = "RIGHT";
 });
-
