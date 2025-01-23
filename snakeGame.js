@@ -208,3 +208,29 @@ function playEatSound() {
         eatingSoundPlaying = false;
     }, 1000);
 }
+
+// controls
+
+// Get the directional buttons
+let upBtn = document.getElementById("upBtn");
+let downBtn = document.getElementById("downBtn");
+let leftBtn = document.getElementById("leftBtn");
+let rightBtn = document.getElementById("rightBtn");
+
+// Add event listeners to change the snake's direction
+upBtn.addEventListener("click", () => {
+    if (direction !== "DOWN") direction = "UP";
+});
+
+downBtn.addEventListener("click", () => {
+    if (direction !== "UP") direction = "DOWN";
+});
+
+leftBtn.addEventListener("click", () => {
+    if (direction !== "RIGHT") direction = "LEFT";
+});
+
+rightBtn.addEventListener("click", () => {
+    if (direction !== "LEFT") direction = "RIGHT";
+});
+
