@@ -1,0 +1,131 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.game-container {
+    text-align: center;
+}
+
+/* Header Styles */
+h1 {
+    color: #33FF33;
+    font-size: 3em;
+    margin-top: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 255, 0, 0.7);
+}
+
+.creator-name {
+    font-size: 1.5em;
+    color: #33FF33;
+    text-shadow: 2px 2px 8px rgba(0, 255, 0, 0.7);
+    margin-bottom: 10px;
+}
+
+/* Scoreboard Styles */
+.scoreboard {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #00FF00;
+    text-shadow: 2px 2px 8px rgba(0, 255, 0, 0.5);
+}
+
+/* Game Area (Canvas) Styles */
+canvas {
+    border: 5px solid #33FF33;
+    background-color: #1a1a1a;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+/* Buttons */
+button {
+    background-color: #33FF33;
+    color: #000;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #00FF00;
+}
+
+.start-btn {
+    display: inline-block;
+}
+
+.restart-btn {
+    display: none;
+}
+
+/* Footer Styles */
+footer {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    background-color: #121212;
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+    box-shadow: 0 -2px 5px rgba(0, 255, 0, 0.2);
+    margin-top: auto;
+}
+
+footer a {
+    color: #33FF33;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Links Styling */
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    margin: 0 15px;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .creator-name {
+        font-size: 1.2em;
+    }
+
+    .scoreboard {
+        font-size: 1em;
+    }
+
+    canvas {
+        width: 90%;
+        height: auto;
+    }
+
+    button {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+}

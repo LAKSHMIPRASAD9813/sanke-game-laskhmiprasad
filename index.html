@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="http://getdrawings.com/free-icon/snake-game-icon-66.png">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Snake Game</h1>
+        <div class="creator-name">Created by Lakshmi Prasad Chilakalapudi</div>
+        
+        <div class="scoreboard">
+            <p>Score: <span id="score">0</span></p>
+            <p>Highest Score: <span id="highscore">0</span></p>
+        </div>
+        
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        
+        <!-- Buttons -->
+        <button class="start-btn" id="startBtn">Start Game</button>
+        <button class="restart-btn" id="restartBtn">Restart Game</button>
+        
+        <!-- Audio for sound effects -->
+        <audio id="eatSound" src="eat-sound.mp3.wav" preload="auto"></audio>
+        <audio id="gameOverSound" src="gameover-sound.mp3.wav" preload="auto"></audio>
+    </div>
+
+    <footer>
+        <p>Made by <a href="https://www.linkedin.com/in/lakshmiprasadchilakalapudi" target="_blank">Lakshmi Prasad Chilakalapudi</a></p>
+    </footer>
+
+    <script src="snakeGame.js"></script>
+</body>
+</html>
